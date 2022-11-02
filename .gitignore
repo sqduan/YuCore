@@ -1,0 +1,11 @@
+# The backup files of verilog
+*.bak
+
+# Wave files
+*.wlf
+
+# Modelsim project files
+*.mti
+
+# work dir
+work
