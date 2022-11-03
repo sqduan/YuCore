@@ -9,16 +9,17 @@
  * Date        : 2022/11/1                                                      *
  ********************************************************************************/
 
-module Register (q, clk, rst, d);
+module Register 
+    #(parameter REGISTER_SIZE = 8)
+    (q, clk, rst, d);
     
     // IO
     input clk;
     input rst;
 
-    parameter N = 8;
-    input  [N - 1 : 0] d;
-    output [N - 1 : 0] q;
-    reg    [N - 1 : 0] q;
+    input  [REGISTER_SIZE - 1 : 0] d;
+    output [REGISTER_SIZE - 1 : 0] q;
+    reg    [REGISTER_SIZE - 1 : 0] q;
 
     // Synchronous reset logic
     always @ ( posedge clk or negedge rst ) begin

@@ -3,19 +3,24 @@
  *                          Yu Core - Single Cycle Version                      *
  *                                                                              *
  *------------------------------------------------------------------------------*
- * File Name   : Memory.v                                                       *
- * Description : This file gives a definition of memory                         *
+ * File Name   : InstructionMem.v                                               *
+ * Description : This file describes the Instruction memory (ROM) of Yu         *
  * Author      : Shiqi Duan                                                     *
  * Date        : 2022/11/2                                                      *
  ********************************************************************************/
 
-module Memory
-    #(parameter DEFAULT_MEMORY_ADDR_WIDTH = 32,
-      parameter DEFAULT_MEMORY_DATA_WIDTH = 32
-    )
-    (addr, data);
-    
-    input  [DEFAULT_MEMORY_ADDR_WIDTH - 1 : 0] addr;
-    output [DEFAULT_MEMORY_DATA_WIDTH - 1 : 0] data;
+module InstructionMem (addr, instruction);
+    `include "Parameters.vh"
+    input  [ADDR_WIDTH_32 - 1 : 0] addr;
+    output [DATA_WIDTH_32 - 1 : 0] instruction;
+
+    ROM #(.ROM_ADDR_WIDTH(ADDR_WIDTH_32),
+          .ROM_DATA_WIDTH(DATA_WIDTH_32),
+          .ROM_SIZE(INSTRUCTION_MEM_SIZE),
+          .ROM_FILE_NAME(INSTRUCTION_FILE_NAME)
+    ) instructionMem (
+        .addr(addr),
+        .data(instruction));
 
 endmodule
+    
