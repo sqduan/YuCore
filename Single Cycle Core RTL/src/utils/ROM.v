@@ -4,7 +4,7 @@
  *                                                                              *
  *------------------------------------------------------------------------------*
  * File Name   : ROM.v                                                          *
- * Description : This file gives a definition of ROM                            *
+ * Description : A general ROM for Yu Core                                      *
  * Author      : Shiqi Duan                                                     *
  * Date        : 2022/11/2                                                      *
  ********************************************************************************/
@@ -19,11 +19,12 @@ module ROM
     input  [ROM_ADDR_WIDTH - 1 : 0] addr;
     output [ROM_DATA_WIDTH - 1 : 0] data;
 
-    reg [ROM_DATA_WIDTH - 1 : 0]  ROMArray[ROM_SIZE - 1 : 0];
+    reg [ROM_DATA_WIDTH - 1 : 0] ROMArray [ROM_SIZE - 1 : 0];
 
     initial
         $readmemh(ROM_FILE_NAME, ROMArray);
 
+    // with 4 bytes aligned
     assign data = ROMArray[addr[ROM_ADDR_WIDTH - 1 : 2]];
 
 endmodule

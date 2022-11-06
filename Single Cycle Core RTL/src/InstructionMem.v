@@ -4,7 +4,7 @@
  *                                                                              *
  *------------------------------------------------------------------------------*
  * File Name   : InstructionMem.v                                               *
- * Description : This file describes the Instruction memory (ROM) of Yu         *
+ * Description : Instruction memory for Yu                                      *
  * Author      : Shiqi Duan                                                     *
  * Date        : 2022/11/2                                                      *
  ********************************************************************************/

@@ -17,12 +17,12 @@ parameter IS_RV32       = 1;
 parameter ADDR_WIDTH_32 = 32;
 parameter ADDR_WIDTH_64 = 64;
 
-// Width of data
+// Width of memory output data
 parameter DATA_WIDTH_32 = 32;
 parameter DATA_WIDTH_64 = 64;
 
 // Parameters of instruction memory
 parameter INSTRUCTION_MEM_SIZE   = 1024;
-parameter INSTRUCTION_FILE_NAME  = "inst.txt";
+parameter INSTRUCTION_FILE_NAME  = "inst.txt";    // The machine code file
 
 `endif
