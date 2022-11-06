@@ -3,22 +3,13 @@
  *                          Yu Core - Single Cycle Version                      *
  *                                                                              *
  *------------------------------------------------------------------------------*
- * File Name   : PC.v                                                           *
- * Description : This file describes the program counter of Yu                  *
+ * File Name   : RegisterFile.v                                                 *
+ * Description : This file describes the register file of Yu                    *
  * Author      : Shiqi Duan                                                     *
- * Date        : 2022/11/1                                                      *
+ * Date        : 2022/11/6                                                      *
  ********************************************************************************/
 
-module PC ( PC, clk, rst, PCNext );
-    `include "Parameters.vh"
-    input  [Parameters.g_dataWidth - 1 : 0]PCNext;
-    input  clk;
-    input  rst;
-    output [Parameters.g_dataWidth - 1 : 0]PC;
-
-    Register #(.REGISTER_SIZE(Parameters.g_dataWidth)) PCRegister (
-        .q(PC),
-        .clk(clk),
-        .rst(rst),
-        .d(PCNext));
+module RegisterFile ( rd1, rd2, clk, a1, a2, a3);
+    input clk, a1, a2, a3;
+    output reg rd1, rd2;
 endmodule

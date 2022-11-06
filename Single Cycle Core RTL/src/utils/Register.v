@@ -17,14 +17,22 @@ module Register
     input clk;
     input rst;
 
-    input  [REGISTER_SIZE - 1 : 0] d;
-    output [REGISTER_SIZE - 1 : 0] q;
-    reg    [REGISTER_SIZE - 1 : 0] q;
+    input      [REGISTER_SIZE - 1 : 0] d;
+    output reg [REGISTER_SIZE - 1 : 0] q;
 
+    reg lastRst;
     // Synchronous reset logic
-    always @ ( posedge clk or negedge rst ) begin
-        if (!rst) 
+    always @ ( posedge clk ) begin
+        if (!rst)
+        begin
             q <= 0;
+            lastRst <= 0;
+        end
+        else if (!lastRst)    // Let the register hold the reset value for one more cycle
+        begin
+            q <= 0;
+            lastRst <= 1;
+        end
         else
             q <= d;
     end

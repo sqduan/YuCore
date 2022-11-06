@@ -9,7 +9,7 @@
  * Date        : 2022/11/2                                                      *
  ********************************************************************************/
 
-module InstructionMem (addr, instruction);
+module InstructionMem (instruction, addr);
     `include "Parameters.vh"
     input  [ADDR_WIDTH_32 - 1 : 0] addr;
     output [DATA_WIDTH_32 - 1 : 0] instruction;
@@ -20,7 +20,8 @@ module InstructionMem (addr, instruction);
           .ROM_FILE_NAME(INSTRUCTION_FILE_NAME)
     ) instructionMem (
         .addr(addr),
-        .data(instruction));
+        .data(instruction)
+    );
 
 endmodule
     
