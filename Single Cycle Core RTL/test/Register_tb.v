@@ -11,7 +11,7 @@
  *      Step 3 : Initial signals, disable reset                                 *
  *                                                                              *
  *      [Part 1] Basic Function Test                                            *
- *      Step 4 : Test basic function, in #1, give d a specific value,         *
+ *      Step 4 : Test basic function, in #1, give d a specific value,           *
  *               check in the next positive clk edge, q == d                    * 
  *                                                                              *
  *      Step 5 : Hold the value of d in next clk cycle, the q should remain     *

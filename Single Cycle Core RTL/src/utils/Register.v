@@ -21,6 +21,8 @@ module Register
     output reg [REGISTER_SIZE - 1 : 0] q;
 
     reg lastRst;
+    initial lastRst = 1;
+
     // Synchronous reset logic
     always @ ( posedge clk ) begin
         if (!rst)

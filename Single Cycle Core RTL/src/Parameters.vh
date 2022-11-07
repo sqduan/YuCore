@@ -21,6 +21,9 @@ parameter ADDR_WIDTH_64 = 64;
 parameter DATA_WIDTH_32 = 32;
 parameter DATA_WIDTH_64 = 64;
 
+// Parameters of registers
+parameter REGISTER_NUM  = 32;
+
 // Parameters of instruction memory
 parameter INSTRUCTION_MEM_SIZE   = 1024;
 parameter INSTRUCTION_FILE_NAME  = "inst.txt";    // The machine code file

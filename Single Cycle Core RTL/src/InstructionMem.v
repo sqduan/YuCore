@@ -24,4 +24,3 @@ module InstructionMem (instruction, addr);
     );
 
 endmodule
-    
