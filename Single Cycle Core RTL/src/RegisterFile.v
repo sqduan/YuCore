@@ -49,6 +49,7 @@ module RegisterFile (readData1, readData2,
 
     integer i;
 
+    // Initialize all the register to zero
     initial
     begin
         for (i = 0; i < REGISTER_NUM; i = i + 1)

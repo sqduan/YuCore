@@ -53,15 +53,47 @@ module RegisterFile_tb;
         writeEnable <= 0;
     end
 
-    // Part 1 : read the initial value of the register
     initial
     begin
-        #4
-        srcRegister1 = 32'h0;
-        srcRegister2 = 32'h0;
-        #2
-        `Assert(readData1, 32'h0)
-        `Assert(readData2, 32'h0)
+        // Part 1 : Read the initial value of the register
+        // This part reads the initial value of register file from x0 to x32 as the src register
+        for (i = 0 ; i < REGISTER_NUM; i = i + 1)
+        begin
+            if (i == 0)
+                #4;
+            else
+                #8;
+            srcRegister1 <= i;            // src is x[i]
+            srcRegister2 <= i;
+            #2
+            `Assert(readData1, 32'h0)
+            `Assert(readData2, 32'h0)
+        end
+
+        // Part 2 : Write some raw data into des register, then read them at 1ns after the neg edge
+        // Check if write data equals read data (except for the x0 register which is always zero)
+        for (i = 0 ; i < REGISTER_NUM; i = i + 1)
+        begin
+            #3
+            desRegister <= i;            // des is x[i]
+            srcRegister1 <= i;           // src is x[i]
+            srcRegister2 <= i;
+            writeEnable <= 1;
+            writeData <= i + 1;
+            #2
+            writeEnable <= 0;
+            #5
+            if (i == 0) begin
+                `Assert(readData1, 32'h0)
+                `Assert(readData2, 32'h0)
+            end else begin
+                `Assert(readData1, i + 1)
+                `Assert(readData2, i + 1)
+                
+            end
+
+        end
+        $stop;
     end
 
     // Clock drive

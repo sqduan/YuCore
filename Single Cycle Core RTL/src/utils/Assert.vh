@@ -13,7 +13,9 @@
 
 `define Assert(signal, value) \
     if (signal !== value) begin \
-        $display("[Yu Core] : ASSERTION FAILED in %m: signal != value"); \
+        $display("[Yu Core] : ASSERTION FAILED in %m: signal %d != value %d\n",signal, value); \
+        $timeformat(-9, 2, " ns", 20); \
+        $display("Current clock is %0t\n", $time); \
         $finish; \
     end
 
