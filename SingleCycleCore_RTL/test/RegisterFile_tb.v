@@ -66,8 +66,8 @@ module RegisterFile_tb;
             srcRegister1 <= i;            // src is x[i]
             srcRegister2 <= i;
             #2
-            `Assert(readData1, 32'h0)
-            `Assert(readData2, 32'h0)
+            `ASSERT(readData1, 32'h0)
+            `ASSERT(readData2, 32'h0)
         end
 
         // Part 2 : Write some raw data into des register, then read them at 1ns after the neg edge
@@ -84,11 +84,11 @@ module RegisterFile_tb;
             writeEnable <= 0;
             #5
             if (i == 0) begin
-                `Assert(readData1, 32'h0)
-                `Assert(readData2, 32'h0)
+                `ASSERT(readData1, 32'h0)
+                `ASSERT(readData2, 32'h0)
             end else begin
-                `Assert(readData1, i + 1)
-                `Assert(readData2, i + 1)
+                `ASSERT(readData1, i + 1)
+                `ASSERT(readData2, i + 1)
                 
             end
 

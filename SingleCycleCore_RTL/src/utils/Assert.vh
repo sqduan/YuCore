@@ -11,9 +11,11 @@
 `ifndef _ASSERT_VH_
 `define _ASSERT_VH_ 
 
-`define Assert(signal, value) \
+`define QUOTE(q) `"q`"
+
+`define ASSERT(signal, value) \
     if (signal !== value) begin \
-        $display("[Yu Core] : ASSERTION FAILED in %m: signal %d != value %d\n",signal, value); \
+        $display("[Yu Core] : ASSERTION FAILED in %m: Signal %s : %d != value %d\n", QUOTE(signal), signal, value); \
         $timeformat(-9, 2, " ns", 20); \
         $display("Current clock is %0t\n", $time); \
         $finish; \

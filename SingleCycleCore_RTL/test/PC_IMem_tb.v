@@ -55,22 +55,22 @@ module PC_IMem_tb;
     initial
     begin
          #20
-        `Assert(PC, 32'h00000000)
-        `Assert(instruction, 32'h00500113)
+        `ASSERT(PC, 32'h00000000)
+        `ASSERT(instruction, 32'h00500113)
     end
 
     initial
     begin
          #30
-        `Assert(PC, 32'h00000004)
-        `Assert(instruction, 32'h00c00193)
+        `ASSERT(PC, 32'h00000004)
+        `ASSERT(instruction, 32'h00c00193)
     end
 
     initial
     begin
         #60
-        `Assert(PC, 32'h00000010)
-        `Assert(instruction, 32'h0041F2B3)
+        `ASSERT(PC, 32'h00000010)
+        `ASSERT(instruction, 32'h0041F2B3)
     end
 
     // Clock drive

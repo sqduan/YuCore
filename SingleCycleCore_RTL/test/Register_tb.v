@@ -51,17 +51,17 @@ module Register_tb;
 
     // Part 1 : Basic function test
     initial #1   d   <= 32'hbabababa;
-    initial #6   `Assert(q, 32'hbabababa)    // Step 4 : q == d
+    initial #6   `ASSERT(q, 32'hbabababa)    // Step 4 : q == d
 
-    initial #12  `Assert(q, 32'hbabababa)    // Step 5 : q doesn't change
+    initial #12  `ASSERT(q, 32'hbabababa)    // Step 5 : q doesn't change
     initial begin 
         #16
         d <= 32'hcacacaca;                    // Step 6 : change d when clk is high
-        `Assert(q, 32'hbabababa)
+        `ASSERT(q, 32'hbabababa)
     end
 
-    initial #22 `Assert(q, 32'hbabababa)     // q doesn't change in neg edge
-    initial #26 `Assert(q, 32'hcacacaca)     // q change in pos edge
+    initial #22 `ASSERT(q, 32'hbabababa)     // q doesn't change in neg edge
+    initial #26 `ASSERT(q, 32'hcacacaca)     // q change in pos edge
 
     // Clock drive
     always #5 clk = ~clk;
