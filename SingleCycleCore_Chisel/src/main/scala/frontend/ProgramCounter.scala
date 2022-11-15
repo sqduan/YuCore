@@ -11,13 +11,14 @@
 package frontend
 import chisel3._
 import chisel3.util._
+import config._
 
-class ProgramCounter(size: Int) extends Module {
+class ProgramCounter(val conf : FrontendConfig) extends Module {
     val io = IO (new Bundle {
-        val PC = Output(UInt(size.W))
+        val PC = Output(UInt(conf.xlen.W))
     })
 
-    val PCRegister = RegInit(0.U(size.W))
+    val PCRegister = RegInit(0.U(conf.xlen.W))
 
     // Next program counter logic
     val PCPlus = PCRegister + 4.U        // No jump, go to next
