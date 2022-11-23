@@ -1,3 +1,16 @@
+/********************************************************************************
+ *                                                                              *
+ *                         Yu Core - Single Cycle Version                       *
+ *                                                                              *
+ *------------------------------------------------------------------------------*
+ * File Name   : ProgramCounterTest.scala                                       *
+ * Description : This file is the test branch of the program counter            *
+ * Test Steps                                                                   *
+ *      Step 1 : Create test class for program counter                          *
+ *                                                                              *
+ * Author      : Shiqi Duan                                                     *
+ * Date        : 2022/11/3                                                      *
+ ********************************************************************************/
 package frontend
 
 import org.scalatest.flatspec.AnyFlatSpec
@@ -8,10 +21,9 @@ import config._
 
 class ProgramCounterTest extends AnyFlatSpec with ChiselScalatestTester {
     behavior of "ProgramCounter"
-    val conf = YuConfig()
+    val conf = YuConfig()        // Read config object
     it should "count 4 in positive edge of clock signal" in {
         test (new ProgramCounter(conf.frontend)) { pc =>
-            // test body here
             for (i <- 0 until 10) {
                 pc.io.PC.expect((i * 4).U)
                 pc.clock.step(1)
@@ -20,8 +32,7 @@ class ProgramCounterTest extends AnyFlatSpec with ChiselScalatestTester {
     }
 }
 
-//import chisel3.stage.ChiselGeneratorAnnotation
-
-//object PCTestMain extends App {
-//    (new chisel3.stage.ChiselStage).execute(Array("--target-dir", "generated/PC"), Seq(ChiselGeneratorAnnotation(() => new ProgramCounter(32))))
-//}
+// Generate verilog file for program counter
+object PCTestMain extends App {
+    (new chisel3.stage.ChiselStage).execute(Array("--target-dir", "generated/PC"), Seq(ChiselGeneratorAnnotation(() => new ProgramCounter(32))))
+}

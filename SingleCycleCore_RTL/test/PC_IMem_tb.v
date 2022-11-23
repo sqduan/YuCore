@@ -25,10 +25,10 @@ module PC_IMem_tb;
     parameter REGISTER_SIZE = 32;
     // Input stimulus
     reg  clk, rst;
-    wire [DATA_WIDTH_32 - 1 : 0]  instruction;
 
-    // Output    
+    // Output
     wire [REGISTER_SIZE - 1 : 0]  PC;
+    wire [DATA_WIDTH_32 - 1 : 0]  instruction;
 
     ProgramCounter PC_DUT (
         .PC(PC),

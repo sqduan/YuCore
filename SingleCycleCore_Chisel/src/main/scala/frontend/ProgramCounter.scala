@@ -19,6 +19,9 @@ class ProgramCounter(val conf : FrontendConfig) extends Module {
     })
 
     val PCRegister = RegInit(0.U(conf.xlen.W))
+    when (RegNext(RegNext(reset.asBool) && !reset.asBool)) {
+        PCRegister := 0
+    }
 
     // Next program counter logic
     val PCPlus = PCRegister + 4.U        // No jump, go to next

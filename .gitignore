@@ -1,3 +1,7 @@
+# VS code settings
+.vscode
+.metals
+
 # The backup files of verilog
 *.bak
 

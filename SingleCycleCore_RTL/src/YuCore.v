@@ -10,16 +10,16 @@
  * Date        : 2022/11/6                                                      *
  ********************************************************************************/
 
-module RegisterFile ( PC, clk, rst, PCNext );
+module YuCore ( clk, rst );
     `include "Parameters.vh"
-    input  [DATA_WIDTH_32 - 1 : 0] PCNext;
-    input  clk;
-    input  rst;
-    output [DATA_WIDTH_32 - 1 : 0] PC;
+    
+    input clk;
+    input rst;
 
-    Register #(.REGISTER_SIZE(DATA_WIDTH_32)) PCRegister (
-        .q(PC),
+    // Instruction Fetch Unit
+    ProgramCounter pc (
+        .PC(PC),
         .clk(clk),
-        .rst(rst),
-        .d(PCNext));
+        .rst(rst)
+    );
 endmodule
