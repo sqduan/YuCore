@@ -9,15 +9,17 @@
  * Date        : 2022/11/6                                                      *
  ********************************************************************************/
  
-module Extender #(parameter EXTENDED_WIDTH = 32) (extendedImm, instruction, immType);
-    input   [EXTENDED_WIDTH - 1 : 7] instruction;     // [6..0] are opcodes we don't care
-    input   [1: 0] immType;                           // Immediate number's width vary from different instruction types
+module Extender (extendedImm, instruction, immType);
+    `include "../Parameters.vh"
+    input   [XLEN - 1 : 0] instruction;     // [6..0] are opcodes we don't care
+    input   [1: 0] immType;                 // Immediate number's width vary from different instruction types
 
-    output reg [EXTENDED_WIDTH - 1 : 0] extendedImm;  // Extended immediate number 
+    output reg [XLEN - 1 : 0] extendedImm;  // Extended immediate number 
 
     always @ (*)
         case(immType)
-            2'b00   : extendedImm = {{20{instruction[EXTENDED_WIDTH - 1]}}, instruction[EXTENDED_WIDTH - 1 : 20]};
-            default : extendedImm = {EXTENDED_WIDTH{1'bx}};
+            // I-type immediate, instruction[31..20] is imm
+            ITypeImm   : extendedImm = {{20{instruction[XLEN - 1]}}, instruction[XLEN - 1 : 20]};
+            default    : extendedImm = {XLEN{1'bx}};
         endcase
 endmodule

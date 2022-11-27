@@ -38,14 +38,14 @@ module RegisterFile (readData1, readData2,
 
     input writeEnable;
     input [4 : 0] desRegister;
-    input [DATA_WIDTH_32 - 1 : 0]writeData;
+    input [XLEN - 1 : 0]writeData;
 
     // Read register values
-    output reg [DATA_WIDTH_32 - 1 : 0] readData1;
-    output reg [DATA_WIDTH_32 - 1 : 0] readData2;
+    output reg [XLEN - 1 : 0] readData1;
+    output reg [XLEN - 1 : 0] readData2;
 
     // Main body of register files, basically an SRAM
-    reg [DATA_WIDTH_32 - 1 : 0] registers [REGISTER_NUM - 1 : 0];
+    reg [XLEN - 1 : 0] registers [REGISTER_NUM - 1 : 0];
 
     integer i;
 

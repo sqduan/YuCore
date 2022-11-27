@@ -15,10 +15,10 @@
 
 `define ASSERT(signal, value) \
     if (signal !== value) begin \
-        $display("[Yu Core] : ASSERTION FAILED in %m: Signal %s : %d != value %d\n", QUOTE(signal), signal, value); \
+        $display("[Yu Core] : ASSERTION FAILED in %m: Signal %s : %d != value %d\n", `QUOTE(signal), signal, value); \
         $timeformat(-9, 2, " ns", 20); \
         $display("Current clock is %0t\n", $time); \
-        $finish; \
+        $stop; \
     end
 
 `endif

@@ -10,7 +10,7 @@
  ********************************************************************************/
 
 module Register 
-    #(parameter REGISTER_SIZE = 8)
+    #(parameter REGISTER_SIZE = 32)
     (q, clk, rst, d);
     
     // IO

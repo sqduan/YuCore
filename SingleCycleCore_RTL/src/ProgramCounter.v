@@ -16,21 +16,21 @@
 module ProgramCounter ( PC, clk, rst );
     `include "Parameters.vh"
     input  clk, rst;
-    output [DATA_WIDTH_32 - 1 : 0] PC;
+    output [XLEN - 1 : 0] PC;
 
-    reg  [DATA_WIDTH_32 - 1 : 0] PCNext;    // As the input of PCRegister, PCNext needs to hold the value
-    wire [DATA_WIDTH_32 - 1 : 0] PCAdd4;
+    reg  [XLEN - 1 : 0] PCNext;    // As the input of PCRegister, PCNext needs to hold the value
+    wire [XLEN - 1 : 0] PCAdd4;
 
     // TODO: I still have a question, after reset, on the next clock edge, PC will become PC + 4
     // It seems that the first instruction will be executed during reset period, it's wired.
-    Register #(.REGISTER_SIZE(DATA_WIDTH_32)) PCRegister (
+    Register #(.REGISTER_SIZE(XLEN)) PCRegister (
         .q(PC),
         .clk(clk),
         .rst(rst),
         .d(PCNext)
     );
 
-    Adder #(.OPERAND_WIDTH(DATA_WIDTH_32)) PCAdder (
+    Adder #(.OPERAND_WIDTH(XLEN)) PCAdder (
         .op1(PC),
         .op2(32'h4),
         .y(PCAdd4)
