@@ -7,7 +7,7 @@
  * Description : This file describes the parameters used in Yu Core             *
  * Author      : Shiqi Duan                                                     *
  * Date        : 2022/11/2                                                      *
-*********************************************************************************/
+ ********************************************************************************/
 `ifndef _PARAMETERS_VH_
 `define _PARAMETERS_VH_
 
@@ -30,6 +30,15 @@ parameter INSTRUCTION_MEM_SIZE   = 1024;
 parameter INSTRUCTION_FILE_NAME  = "inst.txt";    // The machine code file
 
 // Types of immediate number
-parameter ITypeImm      = 2'b00;
+parameter I_TYPE_IMM    = 2'b00;
+
+//----------------------------------------------------------------
+// Parameters of Arithmetic Logic Unit (ALU)
+//----------------------------------------------------------------
+// ALU operations
+parameter ADD_OPCODE    = 3'b000;
+parameter SUB_OPCODE    = 3'b001;
+parameter AND_OPCODE    = 3'b010;
+parameter OR_OPCODE     = 3'b011;
 
 `endif

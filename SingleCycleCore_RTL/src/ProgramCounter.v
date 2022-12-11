@@ -13,7 +13,7 @@
  * Date        : 2022/11/1                                                      *
  ********************************************************************************/
 
-module ProgramCounter ( PC, clk, rst );
+module ProgramCounter (PC, clk, rst);
     `include "Parameters.vh"
     input  clk, rst;
     output [XLEN - 1 : 0] PC;

@@ -11,11 +11,11 @@
 
 module InstructionMem (instruction, addr);
     `include "Parameters.vh"
-    input  [ADDR_WIDTH_32 - 1 : 0] addr;
-    output [DATA_WIDTH_32 - 1 : 0] instruction;
+    input  [XLEN - 1 : 0] addr;
+    output [XLEN - 1 : 0] instruction;
 
-    ROM #(.ROM_ADDR_WIDTH(ADDR_WIDTH_32),
-          .ROM_DATA_WIDTH(DATA_WIDTH_32),
+    ROM #(.ROM_ADDR_WIDTH(XLEN),
+          .ROM_DATA_WIDTH(XLEN),
           .ROM_SIZE(INSTRUCTION_MEM_SIZE),
           .ROM_FILE_NAME(INSTRUCTION_FILE_NAME)
     ) instructionMem (

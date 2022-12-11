@@ -11,7 +11,7 @@
  
 module Extender (extendedImm, instruction, immType);
     `include "../Parameters.vh"
-    input   [XLEN - 1 : 0] instruction;     // [6..0] are opcodes we don't care
+    input   [XLEN - 8 : 0] instruction;     // [31..7] are the immediate number
     input   [1: 0] immType;                 // Immediate number's width vary from different instruction types
 
     output reg [XLEN - 1 : 0] extendedImm;  // Extended immediate number 
@@ -19,7 +19,7 @@ module Extender (extendedImm, instruction, immType);
     always @ (*)
         case(immType)
             // I-type immediate, instruction[31..20] is imm
-            ITypeImm   : extendedImm = {{20{instruction[XLEN - 1]}}, instruction[XLEN - 1 : 20]};
+            I_TYPE_IMM : extendedImm = {{20{instruction[XLEN - 8]}}, instruction[XLEN - 8 : 13]};
             default    : extendedImm = {XLEN{1'bx}};
         endcase
 endmodule
