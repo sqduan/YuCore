@@ -37,7 +37,7 @@ module PC_IMem_tb;
     );
 
     InstructionMem IMem_DUT (
-        .addr(PC),
+        .address(PC),
         .instruction(instruction)
     );
     // Test initialization

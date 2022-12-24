@@ -14,9 +14,9 @@ module ROM
       parameter ROM_DATA_WIDTH = 32,
       parameter ROM_SIZE       = 64,
       parameter ROM_FILE_NAME  = "default_rom_file"
-    ) (addr, data);
+    ) (address, data);
 
-    input  [ROM_ADDR_WIDTH - 1 : 0] addr;
+    input  [ROM_ADDR_WIDTH - 1 : 0] address;
     output [ROM_DATA_WIDTH - 1 : 0] data;
 
     // The array of ROM, the layout of ROM is:
@@ -34,6 +34,6 @@ module ROM
         $readmemh(ROM_FILE_NAME, ROMArray);
 
     // with 4 bytes aligned
-    assign data = ROMArray[addr[ROM_ADDR_WIDTH - 1 : 2]];
+    assign data = ROMArray[address[ROM_ADDR_WIDTH - 1 : 2]];
 
 endmodule

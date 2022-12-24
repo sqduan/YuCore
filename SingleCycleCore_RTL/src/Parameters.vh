@@ -29,6 +29,8 @@ parameter XLEN = 32;              // The 32 x registers are 32 bits wide
 parameter INSTRUCTION_MEM_SIZE   = 1024;
 parameter INSTRUCTION_FILE_NAME  = "inst.txt";    // The machine code file
 
+parameter DATA_MEM_SIZE = 1024;
+
 // Types of immediate number
 parameter I_TYPE_IMM    = 2'b00;
 

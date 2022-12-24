@@ -3,26 +3,46 @@
  *                          Yu Core - Single Cycle Version                      *
  *                                                                              *
  *------------------------------------------------------------------------------*
- * File Name   : YuCore.v                                                       *
- * Description : This is YuCore, the top level file assemblies all the          *
- *               essential parts of Yu and make a useable RISC-V Core, enjoy.   *
+ * File Name   : DataPath.v                                                     *
+ * Description : The data path of Yu Core                                       *
  * Author      : Shiqi Duan                                                     *
- * Date        : 2022/11/6                                                      *
+ * Date        : 2022/12/11                                                     *
  ********************************************************************************/
 
-module YuCore (clk, rst);
+/*
+ * Module  : DataPath
+ * Inputs  :
+ *           clk -- Clock signal
+ *           rst -- Reset signal
+ *
+ * Outputs : 
+ *
+ * TODO    : Generalization this module, replase magic number with pre-defined macros
+ */
+module DataPath (clk, rst);
     `include "Parameters.vh"
     
     input clk;
     input rst;
 
+    /* Signal wires between different modules */
+    // Program counter to instruction memory
     wire [XLEN - 1 : 0] PC;
-    wire [XLEN - 1 : 0] instruction;
-    wire [4 : 0] srcRegister1;
-    wire [4 : 0] srcRegister2;
-    wire [4 : 0] desRegister;
 
-    // Instruction Fetch Unit
+    // Instruction memory to decoder
+    wire [XLEN - 1 : 0] instruction;
+
+    // Decoder to register file & extender
+    wire [4 : 0] srcRegister1 = instruction[19 : 15];
+    wire [4 : 0] srcRegister2 = instruction[24 : 20];
+    wire [4 : 0] desRegister  = instruction[11 : 7];
+    
+    wire [6 : 0] opcode;
+    wire [2 : 0] f3;
+
+    wire [24 : 0] imm;
+
+    /**************** Instruction Fetch Unit ****************/
     ProgramCounter pc (
         .PC(PC),
         .clk(clk),
@@ -34,9 +54,20 @@ module YuCore (clk, rst);
         .address(PC)
     );
 
-    // Instruction Decode Unit
+    /**************** Instruction Decode Unit ****************/
     wire [XLEN - 1 : 0] A;
     wire [XLEN - 1 : 0] B;
+
+    Decoder decoder (
+        .srcRegister1(srcRegister1),
+        .srcRegister2(srcRegister2),
+        .desRegister(desRegister),
+        .f3(f3),
+        .opcode(opcode),
+        .imm(imm)
+        .instruction(instruction)
+    );
+
     RegisterFile regFile (
         .readData1(A),
         .readData2(B),
@@ -46,6 +77,10 @@ module YuCore (clk, rst);
         .writeEnable(0),
         .desRegister(desRegister),
         .writeData(0)
+    );
+
+    Extender extender (
+        .
     );
 
     // Instruction Execute Unit

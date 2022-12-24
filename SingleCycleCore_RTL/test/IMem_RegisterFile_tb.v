@@ -29,7 +29,7 @@ module IMem_RegisterFile_tb;
     wire [DATA_WIDTH_32 - 1 : 0] instruction;
 
     InstructionMem IMem_DUT (
-        .addr(PC),
+        .address(PC),
         .instruction(instruction)
     );
 
