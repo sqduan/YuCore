@@ -21,7 +21,7 @@
  */
 module DataPath (clk, rst);
     `include "Parameters.vh"
-    
+
     input clk;
     input rst;
 
@@ -36,13 +36,26 @@ module DataPath (clk, rst);
     wire [4 : 0] srcRegister1 = instruction[19 : 15];
     wire [4 : 0] srcRegister2 = instruction[24 : 20];
     wire [4 : 0] desRegister  = instruction[11 : 7];
-    
+
     wire [6 : 0] opcode;
     wire [2 : 0] f3;
 
     wire [24 : 0] imm;
 
-    /**************** Instruction Fetch Unit ****************/
+    // Register file to ALU
+    wire [XLEN - 1 : 0] A;
+    wire [XLEN - 1 : 0] B;
+    wire [XLEN - 1 : 0] extendedImm;
+
+    // ALU to data memory
+    wire [XLEN - 1 : 0] ALUResult;
+
+    // Data memory to Register file
+    wire [XLEN - 1 : 0] readData;
+
+    //----------------------------------------------------------------
+    // Instruction Fetch Unit
+    //----------------------------------------------------------------
     ProgramCounter pc (
         .PC(PC),
         .clk(clk),
@@ -54,17 +67,16 @@ module DataPath (clk, rst);
         .address(PC)
     );
 
-    /**************** Instruction Decode Unit ****************/
-    wire [XLEN - 1 : 0] A;
-    wire [XLEN - 1 : 0] B;
-
+    //----------------------------------------------------------------
+    // Instruction Decode Unit
+    //----------------------------------------------------------------
     Decoder decoder (
         .srcRegister1(srcRegister1),
         .srcRegister2(srcRegister2),
         .desRegister(desRegister),
         .f3(f3),
         .opcode(opcode),
-        .imm(imm)
+        .imm(imm),
         .instruction(instruction)
     );
 
@@ -74,21 +86,36 @@ module DataPath (clk, rst);
         .clk(clk),
         .srcRegister1(srcRegister1),
         .srcRegister2(srcRegister2),
-        .writeEnable(0),
+        .writeEnable(1),
         .desRegister(desRegister),
-        .writeData(0)
+        .writeData(readData)
     );
 
     Extender extender (
-        .
+        .extendedImm(extendedImm),
+        .imm(imm),
+        .opcode(opcode)
     );
 
+    //----------------------------------------------------------------
     // Instruction Execute Unit
-    wire [XLEN - 1 : 0] ALUResult;
+    //----------------------------------------------------------------
     ALU alu (
         .result(ALUResult),
         .A(A),
-        .B(B),
+        .B(extendedImm),
         .control(ALUControl)
+    );
+
+    //----------------------------------------------------------------
+    // Instruction Memory Unit
+    //----------------------------------------------------------------
+    DataMem dataMem (
+        .readData(readData),
+        .clk(clk),
+        .address(ALUResult),
+        .writeData(0),
+        .writeEnable(FALSE),
+        .readEnable(TRUE)
     );
 endmodule

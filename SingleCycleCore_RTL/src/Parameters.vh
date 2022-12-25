@@ -13,6 +13,9 @@
 
 parameter IS_RV32       = 1;
 
+parameter TRUE          = 0'b1;
+parameter FALSE         = 0'b0;
+
 // Width of address line
 parameter ADDR_WIDTH_32 = 32;
 parameter ADDR_WIDTH_64 = 64;
@@ -31,8 +34,10 @@ parameter INSTRUCTION_FILE_NAME  = "inst.txt";    // The machine code file
 
 parameter DATA_MEM_SIZE = 1024;
 
-// Types of immediate number
-parameter I_TYPE_IMM    = 2'b00;
+//----------------------------------------------------------------
+// Parameters of Instruction
+//----------------------------------------------------------------
+parameter I_TYPE_INSTR  = 7'b000_0011;
 
 //----------------------------------------------------------------
 // Parameters of Arithmetic Logic Unit (ALU)

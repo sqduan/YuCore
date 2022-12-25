@@ -20,35 +20,35 @@ module Extender_tb;
     `include "../src/Parameters.vh"
     // Input stimulus
     reg  [XLEN - 1 : 0] instruction;
-    reg  [1 : 0] immType;
+    reg  [6 : 0] opcode;
 
     // Output
     wire [XLEN - 1 : 0] extendedImm;
 
     Extender DUT (
         .extendedImm(extendedImm),
-        .instruction(instruction[XLEN - 1 : 7]),
-        .immType(immType));
+        .imm(instruction[XLEN - 1 : 7]),
+        .opcode(opcode));
     
     initial
     begin
         // Part 1 : Test I-type immediate expender, expend 11 bits to XLEN bits
         #1
         $display("Test the I-type immediate expender\n");
-        immType <= I_TYPE_IMM;
-        instruction <= 32'b0000_0000_0000_01001_010_00110_0000011;
+        instruction = 32'b0000_0000_0000_01001_010_00110_0000011;
+        opcode = instruction[6 : 0];
         #1
         `ASSERT(extendedImm, 32'h00000000)
 
         #1
-        immType <= I_TYPE_IMM;
-        instruction <= 32'b1010_0101_0100_10011_010_00110_0000011;
+        instruction = 32'b1010_0101_0100_10011_010_00110_0000011;
+        opcode = instruction[6 : 0];
         #1
         `ASSERT(extendedImm, 32'hFFFFFA54)
 
         #1
-        immType <= I_TYPE_IMM;
-        instruction <= 32'b1111_1111_1111_01001_010_00110_0000011;
+        instruction = 32'b1111_1111_1111_01001_010_00110_0000011;
+        opcode = instruction[6 : 0];
         #1
         `ASSERT(extendedImm, 32'hFFFFFFFF)
 
