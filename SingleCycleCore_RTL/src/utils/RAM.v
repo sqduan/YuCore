@@ -28,9 +28,15 @@ module RAM
 
     always @ (posedge clk)
     begin
-        if (writeEnable) RAMArray[address] <= writeData;
-        else tempData <= RAMArray[address];
+        // Currently our memory cell is 4Bytes, in next generation of Yu,
+        // I will support 1Byte memory cell and flexible length types
+        if (writeEnable) RAMArray[address[RAM_ADDR_WIDTH - 1 : 2]] <= writeData;
     end
 
+    // The Ram can get output at any time
+    always @ (*)
+    begin
+        tempData = RAMArray[address[RAM_ADDR_WIDTH - 1 : 2]];
+    end
     assign readData = (readEnable & !writeEnable) ? tempData : 'hz;
 endmodule

@@ -57,7 +57,7 @@ module RegisterFile_tb;
     begin
         // Part 1 : Read the initial value of the register
         // This part reads the initial value of register file from x0 to x32 as the src register
-        for (i = 0 ; i < REGISTER_NUM; i = i + 1)
+        for (i = 0; i < REGISTER_NUM; i = i + 1)
         begin
             if (i == 0)
                 #4;
@@ -72,7 +72,7 @@ module RegisterFile_tb;
 
         // Part 2 : Write some raw data into des register, then read them at 1ns after the neg edge
         // Check if write data equals read data (except for the x0 register which is always zero)
-        for (i = 0 ; i < REGISTER_NUM; i = i + 1)
+        for (i = 0; i < REGISTER_NUM; i = i + 1)
         begin
             #3
             desRegister <= i;            // des is x[i]
