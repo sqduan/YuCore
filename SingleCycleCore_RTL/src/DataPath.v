@@ -19,7 +19,9 @@
  *
  * TODO    : Generalization this module, replase magic number with pre-defined macros
  */
-module DataPath (clk, rst);
+module DataPath
+    #(parameter INSTRUCTION_FILE_NAME = "default_instr_file")
+    (clk, rst);
     `include "Parameters.vh"
 
     input clk;
@@ -62,7 +64,7 @@ module DataPath (clk, rst);
         .rst(rst)
     );
 
-    InstructionMem iMem (
+    InstructionMem #(.INSTRUCTION_FILE_NAME(INSTRUCTION_FILE_NAME)) iMem (
         .instruction(instruction),
         .address(PC)
     );
@@ -86,7 +88,7 @@ module DataPath (clk, rst);
         .clk(clk),
         .srcRegister1(srcRegister1),
         .srcRegister2(srcRegister2),
-        .writeEnable(1),
+        .writeEnable(TRUE),
         .desRegister(desRegister),
         .writeData(readData)
     );
@@ -104,7 +106,7 @@ module DataPath (clk, rst);
         .result(ALUResult),
         .A(A),
         .B(extendedImm),
-        .control(ALUControl)
+        .control(3'b000)
     );
 
     //----------------------------------------------------------------

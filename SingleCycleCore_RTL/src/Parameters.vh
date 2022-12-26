@@ -29,15 +29,17 @@ parameter REGISTER_NUM  = 32;
 parameter XLEN = 32;              // The 32 x registers are 32 bits wide
 
 // Parameters of instruction memory
-parameter INSTRUCTION_MEM_SIZE   = 1024;
-parameter INSTRUCTION_FILE_NAME  = "inst.txt";    // The machine code file
+parameter INSTRUCTION_MEM_SIZE = 1024;
+parameter EXECUTE_FILE_NAME    = "inst.txt";    // The machine code file
 
 parameter DATA_MEM_SIZE = 1024;
 
 //----------------------------------------------------------------
 // Parameters of Instruction
 //----------------------------------------------------------------
-parameter I_TYPE_INSTR  = 7'b000_0011;
+parameter I_TYPE_INSTR = 7'b000_0011;
+parameter S_TYPE_INSTR = 7'b010_0011;
+parameter R_TYPE_INSTR = 7'b011_0011;
 
 //----------------------------------------------------------------
 // Parameters of Arithmetic Logic Unit (ALU)

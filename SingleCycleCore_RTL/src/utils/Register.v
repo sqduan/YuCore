@@ -23,7 +23,7 @@ module Register
     reg lastRst;
     initial lastRst = 1;
 
-    // Synchronous reset logic
+    // Synchronous reset logic, reset signal is effective at low level
     always @ ( posedge clk ) begin
         if (!rst)
         begin

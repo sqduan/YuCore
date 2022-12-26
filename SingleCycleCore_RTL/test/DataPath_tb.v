@@ -17,34 +17,31 @@
  ********************************************************************************/
 `timescale 1ns/10ps
 
-module DataMem_tb;
+module DataPath_tb;
     `include "../src/utils/Assert.vh"
     `include "../src/Parameters.vh"
     // Input stimulus
     reg clk;
-    reg [XLEN - 1 : 0] address;
-    reg [XLEN - 1 : 0] writeData;
-    reg writeEnable;
-    reg readEnable;  
-
-    wire [XLEN - 1 : 0] readData;
+    reg rst;
 
     integer i;
-    DataPath DUT (
-
+    DataPath #(.INSTRUCTION_FILE_NAME("./test/datapath_tb.ASM")) DUT
+    (
+        .clk(clk),
+        .rst(rst)
     );
 
     // Test initialization
     initial
     begin
         clk <= 0;
-        writeEnable <= 0;
-        readEnable  <= 0;
+        rst <= 0;
     end
 
     initial
     begin
-        $stop;
+        #20;
+        rst <= 1;
     end
 
     // Clock drive
