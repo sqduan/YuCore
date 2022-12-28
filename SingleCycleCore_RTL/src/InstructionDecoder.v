@@ -3,13 +3,14 @@
  *                          Yu Core - Single Cycle Version                      *
  *                                                                              *
  *------------------------------------------------------------------------------*
- * File Name   : Decoder.v                                                      *
- * Description : decoder for Yu Core                                            *
+ * File Name   : InstructionDecoder.v                                           *
+ * Description : Instruction decoder for Yu Core, this decoder do a initial     *
+ *               decode operation                                               *
  * Author      : Shiqi Duan                                                     *
  * Date        : 2022/12/11                                                     *
  ********************************************************************************/
 
-module Decoder (srcRegister1, srcRegister2, desRegister, f3, opcode, imm, instruction);
+module InstructionDecoder (srcRegister1, srcRegister2, desRegister, f3, opcode, imm, instruction);
     `include "Parameters.vh"
     input  [XLEN - 1 : 0] instruction;
 
@@ -20,7 +21,7 @@ module Decoder (srcRegister1, srcRegister2, desRegister, f3, opcode, imm, instru
     output reg [6 : 0] opcode;
     output reg [2 : 0] f3;
 
-    output reg [24 : 0] imm;
+    output reg [24 : 0]imm;
 
     always @ (instruction)
     begin

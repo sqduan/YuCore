@@ -25,7 +25,7 @@ module DataPath_tb;
     reg rst;
 
     integer i;
-    DataPath #(.INSTRUCTION_FILE_NAME("./test/datapath_tb.ASM")) DUT
+    DataPath #(.INSTRUCTION_FILE_NAME("./test/datapath_tb2.ASM")) DUT
     (
         .clk(clk),
         .rst(rst)

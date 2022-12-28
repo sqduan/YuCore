@@ -72,7 +72,7 @@ module DataPath
     //----------------------------------------------------------------
     // Instruction Decode Unit
     //----------------------------------------------------------------
-    Decoder decoder (
+    InstructionDecoder decoder (
         .srcRegister1(srcRegister1),
         .srcRegister2(srcRegister2),
         .desRegister(desRegister),
@@ -116,8 +116,8 @@ module DataPath
         .readData(readData),
         .clk(clk),
         .address(ALUResult),
-        .writeData(0),
-        .writeEnable(FALSE),
+        .writeData(B),
+        .writeEnable(TRUE),
         .readEnable(TRUE)
     );
 endmodule

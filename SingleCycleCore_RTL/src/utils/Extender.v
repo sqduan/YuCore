@@ -20,6 +20,7 @@ module Extender (extendedImm, imm, opcode);
         case(opcode)
             // I-type immediate, imm[31..20] is imm
             I_TYPE_INSTR : extendedImm = {{20{imm[XLEN - 8]}}, imm[XLEN - 8 : 13]};
+            S_TYPE_INSTR : extendedImm = {{20{imm[XLEN - 8]}}, imm[XLEN - 8 : 18], imm[4 : 0]};
             default      : extendedImm = {XLEN{1'bx}};
         endcase
 endmodule

@@ -40,6 +40,7 @@ parameter DATA_MEM_SIZE = 1024;
 parameter I_TYPE_INSTR = 7'b000_0011;
 parameter S_TYPE_INSTR = 7'b010_0011;
 parameter R_TYPE_INSTR = 7'b011_0011;
+parameter B_TYPE_INSTR = 7'b110_0011;
 
 //----------------------------------------------------------------
 // Parameters of Arithmetic Logic Unit (ALU)

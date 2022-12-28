@@ -23,7 +23,8 @@ module InstructionMem_tb;
 
     InstructionMem DUT (
         .address(address),
-        .instruction(instruction));
+        .instruction(instruction)
+    );
     
     initial
     begin
