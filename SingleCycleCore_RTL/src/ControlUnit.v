@@ -24,18 +24,18 @@
  * TODO    : Generalization this module, replase magic number with pre-defined macros
  */
 module ControlUnit
-    (PCSrc, resultSrc, memWrite, ALUControl, ALUSrc, immSrc, regWrite, opcode, f3, f7, zero);
+    (PCSrc, resultSrc, memWrite, ALUControl, ALUSrc, immSrc, regWrite, opcode, funct3, funct7, zero);
     `include "Parameters.vh"
 
     input [6 : 0] opcode;
-    input [2 : 0] f3;
-    input f7;
+    input [2 : 0] funct3;
+    input funct7;
     input zero;
 
     output PCSrc;
     output resultSrc;
     output memWrite;
-    output ALUControl;
+    output [2 : 0] ALUControl;
     output ALUSrc;
     output [1 : 0] immSrc;
     output regWrite;
@@ -48,8 +48,17 @@ module ControlUnit
         .memWrite(memWrite),
         .ALUSrc(ALUSrc),
         .immSrc(immSrc),
+        .regWrite(regWrite),
         .ALUOpcode(ALUOpcode),
         .opcode(opcode)
+    );
+
+    ALUDecoder aluDecoder (
+        .ALUControl(ALUControl),
+        .ALUOpcode(ALUOpcode),
+        .funct3(funct3),
+        .funct7(funct7),
+        .opcode5(opcode[5])
     );
 
     assign PCSrc = zero & branch;

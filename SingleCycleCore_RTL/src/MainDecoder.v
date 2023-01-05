@@ -36,7 +36,7 @@ module MainDecoder (branch, resultSrc, memWrite, ALUSrc, immSrc, regWrite, ALUOp
             end
             S_TYPE_INSTR : begin
                 regWrite  <= 1'b0;
-                immSrc    <= 2'b00;
+                immSrc    <= 2'b01;
                 ALUSrc    <= 1'b1;
                 memWrite  <= 1'b1;
                 resultSrc <= 1'bx;

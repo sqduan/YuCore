@@ -4,7 +4,7 @@
  *                                                                              *
  *------------------------------------------------------------------------------*
  * File Name   : Parameters.vh                                                  *
- * Description : This file describes the parameters used in Yu Core             *
+ * Description : This file defines the parameters used in Yu Core               *
  * Author      : Shiqi Duan                                                     *
  * Date        : 2022/11/2                                                      *
  ********************************************************************************/
@@ -50,5 +50,6 @@ parameter ADD_OPCODE    = 3'b000;
 parameter SUB_OPCODE    = 3'b001;
 parameter AND_OPCODE    = 3'b010;
 parameter OR_OPCODE     = 3'b011;
+parameter SLT_OPCODE    = 3'b101;
 
 `endif
