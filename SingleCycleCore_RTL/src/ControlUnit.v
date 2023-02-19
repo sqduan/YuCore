@@ -13,8 +13,8 @@
  * Module  : ControlUnit
  * Inputs  :
  *           opcode -- Operation code of an instruction
- *           f3     -- function 3 opcode
- *           f7     -- function 7 opcode, for RV32I, only bit 5 of funct7 is used
+ *           funct3 -- function 3 opcode
+ *           funct7 -- function 7 opcode, for RV32I, only bit 5 of funct7 is used
  *           zero   -- zero flag for branch instructions
  *
  * Outputs :

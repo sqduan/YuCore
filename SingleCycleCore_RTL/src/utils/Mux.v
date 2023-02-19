@@ -3,17 +3,38 @@
  *                          Yu Core - Single Cycle Version                      *
  *                                                                              *
  *------------------------------------------------------------------------------*
- * File Name   : YuCore.v                                                       *
- * Description : This is YuCore, the top level file assemblies all the          *
- *               essential parts of Yu and make a useable RISC-V Core, enjoy.   *
+ * File Name   : Mux.v                                                          *
+ * Description : This file gives general Muxes                                  *
  * Author      : Shiqi Duan                                                     *
  * Date        : 2022/11/6                                                      *
  ********************************************************************************/
+ 
+module Mux2 (out, select, a, b);
+    input select;
+    input a;
+    input b;
 
-module YuCore (clk, rst);
-    `include "Parameters.vh"
-    
-    input clk;
-    input rst;
+    output out;
 
+    assign out = (select == 0) ? a : b;
+endmodule
+
+module Mux4 (out, select, a, b, c, d);
+    input [1 : 0] select;
+    input a;
+    input b;
+    input c;
+    input d;
+
+    output reg out;
+
+    always @ (*)
+    begin
+        case (select)
+            2'b00 : out <= a;
+            2'b01 : out <= b;
+            2'b10 : out <= c;
+            2'b11 : out <= d;
+        endcase
+    end
 endmodule

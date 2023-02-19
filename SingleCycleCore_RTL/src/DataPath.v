@@ -20,24 +20,25 @@
  * TODO    : Generalization this module, replase magic number with pre-defined macros
  */
 module DataPath
-    #(parameter INSTRUCTION_FILE_NAME = "default_instr_file")
-    (clk, rst);
+    (PC, ALUResult, writeData, srcRegister1, srcRegister2, desRegister, readData, clk, rst);
     `include "Parameters.vh"
 
     input clk;
     input rst;
 
+    // IO between datapath and instruction/data memory
+    input [XLEN - 1 : 0] readData;       // Read from data memory
+    input [4 : 0] srcRegister1;
+    input [4 : 0] srcRegister2;
+    input [4 : 0] desRegister;
+
+    output [XLEN - 1 : 0] PC;            // To instruction memory
+    output [XLEN - 1 : 0] ALUResult;     // To data memory as data address
+    output [XLEN - 1 : 0] writeData;     // Data write to data memory
+
     /* Signal wires between different modules */
-    // Program counter to instruction memory
-    wire [XLEN - 1 : 0] PC;
-
-    // Instruction memory to decoder
-    wire [XLEN - 1 : 0] instruction;
-
     // Decoder to register file & extender
-    wire [4 : 0] srcRegister1 = instruction[19 : 15];
-    wire [4 : 0] srcRegister2 = instruction[24 : 20];
-    wire [4 : 0] desRegister  = instruction[11 : 7];
+    
 
     wire [6 : 0] opcode;
     wire [2 : 0] f3;
@@ -49,12 +50,6 @@ module DataPath
     wire [XLEN - 1 : 0] B;
     wire [XLEN - 1 : 0] extendedImm;
 
-    // ALU to data memory
-    wire [XLEN - 1 : 0] ALUResult;
-
-    // Data memory to Register file
-    wire [XLEN - 1 : 0] readData;
-
     //----------------------------------------------------------------
     // Instruction Fetch Unit
     //----------------------------------------------------------------
@@ -64,11 +59,6 @@ module DataPath
         .rst(rst)
     );
 
-    InstructionMem #(.INSTRUCTION_FILE_NAME(INSTRUCTION_FILE_NAME)) iMem (
-        .instruction(instruction),
-        .address(PC)
-    );
-
     //----------------------------------------------------------------
     // Instruction Decode Unit
     //----------------------------------------------------------------
@@ -76,7 +66,7 @@ module DataPath
         .srcRegister1(srcRegister1),
         .srcRegister2(srcRegister2),
         .desRegister(desRegister),
-        .f3(f3),
+        .funct3(funct3),
         .opcode(opcode),
         .imm(imm),
         .instruction(instruction)
@@ -108,16 +98,5 @@ module DataPath
         .B(extendedImm),
         .control(3'b000)
     );
-
-    //----------------------------------------------------------------
-    // Instruction Memory Unit
-    //----------------------------------------------------------------
-    DataMem dataMem (
-        .readData(readData),
-        .clk(clk),
-        .address(ALUResult),
-        .writeData(B),
-        .writeEnable(TRUE),
-        .readEnable(TRUE)
-    );
+    
 endmodule
