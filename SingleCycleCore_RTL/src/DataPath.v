@@ -15,7 +15,7 @@
  *           clk -- Clock signal
  *           rst -- Reset signal
  *
- * Outputs : 
+ * Outputs :
  *
  * TODO    : Generalization this module, replase magic number with pre-defined macros
  */

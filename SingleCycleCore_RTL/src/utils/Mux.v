@@ -14,9 +14,9 @@ module Mux2 (out, select, a, b);
     input a;
     input b;
 
-    output out;
+    output reg out;
 
-    assign out = (select == 0) ? a : b;
+    always @ (*) out = (select == 0) ? a : b;
 endmodule
 
 module Mux4 (out, select, a, b, c, d);

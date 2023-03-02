@@ -5,11 +5,26 @@
  *------------------------------------------------------------------------------*
  * File Name   : MainDecoder.v                                                  *
  * Description : The Main decoder for Yu Core in controll unit, it reads the    *
- *               opcode and generate control signals                            *
+ *               opcode and generate control signals according to the opcode    *
  * Author      : Shiqi Duan                                                     *
  * Date        : 2022/12/11                                                     *
  ********************************************************************************/
 
+/*
+ * Module  : MainDecoder
+ * Inputs  : opcode -- Operation code of the instruction
+ *
+ * Outputs : 
+ *           branch    -- Is the instruction a branch?
+ *           resultSrc -- Result from ALU (0) or data memory (1)
+ *           memWrite  -- Write data memory?
+ *           ALUSrc    -- ALU's operand B from register file or immediate number
+ *           immSrc    -- Immediate number source, 0 for lw, 1 for sw
+ *           regWrite  -- Write register file?
+ *           ALUOpcode -- Operation code for ALU
+ *
+ * TODO    : Generalization this module, replase magic number with pre-defined macros
+ */
 module MainDecoder (branch, resultSrc, memWrite, ALUSrc, immSrc, regWrite, ALUOpcode, opcode);
     `include "Parameters.vh"
     input [6 : 0] opcode;
@@ -22,6 +37,8 @@ module MainDecoder (branch, resultSrc, memWrite, ALUSrc, immSrc, regWrite, ALUOp
     output reg regWrite;
     output reg [1 : 0] ALUOpcode;
 
+    // This always block is the implement of the main decoder's truth table,
+    // give opcode, generate control signals for different modules on datapath
     always @ (opcode)
     begin
         case(opcode)

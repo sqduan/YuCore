@@ -42,6 +42,9 @@ parameter S_TYPE_INSTR = 7'b010_0011;
 parameter R_TYPE_INSTR = 7'b011_0011;
 parameter B_TYPE_INSTR = 7'b110_0011;
 
+parameter I_TYPE_IMM   = 1'b0;
+parameter S_TYPE_IMM   = 1'b1;
+
 //----------------------------------------------------------------
 // Parameters of Arithmetic Logic Unit (ALU)
 //----------------------------------------------------------------

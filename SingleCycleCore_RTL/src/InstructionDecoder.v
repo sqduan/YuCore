@@ -4,8 +4,9 @@
  *                                                                              *
  *------------------------------------------------------------------------------*
  * File Name   : InstructionDecoder.v                                           *
- * Description : Instruction decoder for Yu Core, this decoder do a initial     *
- *               decode operation                                               *
+ * Description : An initial instruction decoder for Yu Core, this decoder will  *
+ *               split the instruction and pass the instruction slice to Main & *
+ *               ALU decoder and register file                                  *
  * Author      : Shiqi Duan                                                     *
  * Date        : 2022/12/11                                                     *
  ********************************************************************************/
@@ -26,7 +27,7 @@ module InstructionDecoder (srcRegister1, srcRegister2, desRegister, funct3, opco
     always @ (instruction)
     begin
         opcode       <= instruction[6 : 0];
-        funct3           <= instruction[14 : 12];
+        funct3       <= instruction[14 : 12];
         srcRegister1 <= instruction[19 : 15];
         srcRegister2 <= instruction[24 : 20];
         desRegister  <= instruction[11 : 7];
