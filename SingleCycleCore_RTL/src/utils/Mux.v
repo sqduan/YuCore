@@ -9,24 +9,24 @@
  * Date        : 2022/11/6                                                      *
  ********************************************************************************/
  
-module Mux2 (out, select, a, b);
+module Mux2 #(parameter OPERAND_WIDTH = 32) (out, select, a, b);
     input select;
-    input a;
-    input b;
+    input [OPERAND_WIDTH - 1 : 0] a;
+    input [OPERAND_WIDTH - 1 : 0] b;
 
-    output reg out;
+    output reg [OPERAND_WIDTH - 1 : 0] out;
 
     always @ (*) out = (select == 0) ? a : b;
 endmodule
 
-module Mux4 (out, select, a, b, c, d);
+module Mux4 #(parameter OPERAND_WIDTH = 32) (out, select, a, b, c, d);
     input [1 : 0] select;
-    input a;
-    input b;
-    input c;
-    input d;
+    input [OPERAND_WIDTH - 1 : 0] a;
+    input [OPERAND_WIDTH - 1 : 0] b;
+    input [OPERAND_WIDTH - 1 : 0] c;
+    input [OPERAND_WIDTH - 1 : 0] d;
 
-    output reg out;
+    output reg [OPERAND_WIDTH - 1 : 0] out;
 
     always @ (*)
     begin

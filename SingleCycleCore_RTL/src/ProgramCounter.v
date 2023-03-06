@@ -13,13 +13,28 @@
  * Date        : 2022/11/1                                                      *
  ********************************************************************************/
 
-module ProgramCounter (PC, clk, rst);
+module ProgramCounter (PC, PCSrc, imm, clk, rst);
     `include "Parameters.vh"
-    input  clk, rst;
+    input  clk, rst;              // Clock and reset signal
+    input  PCSrc;                 // Source of PC, simply increase (0) or branch target address
+    input  [XLEN - 1 : 0] imm;    // Branch offset by an immediate number
+
     output [XLEN - 1 : 0] PC;
 
-    reg  [XLEN - 1 : 0] PCNext;    // As the input of PCRegister, PCNext needs to hold the value
-    wire [XLEN - 1 : 0] PCAdd4;
+    wire [XLEN - 1 : 0] PCNext;   // Next PC which will be stored in register
+    wire [XLEN - 1 : 0] PCOffset; // Offset of next instruction from current PC
+
+    // Source of the PC
+    // 0: Sequential execution, next PC = PC + 4
+    // 1: Branch, next PC = PC + imm
+    Mux2 PCSelector (PCOffset, PCSrc, 32'h4, imm);
+
+    // Calculate next PC from offset
+    Adder #(.OPERAND_WIDTH(XLEN)) PCAdder (
+        .op1(PC),
+        .op2(PCOffset),
+        .y(PCNext)
+    );
 
     // TODO: I still have a question, after reset, on the next clock edge, PC will become PC + 4
     // It seems that the first instruction will be executed during reset period, it's wired.
@@ -30,15 +45,4 @@ module ProgramCounter (PC, clk, rst);
         .d(PCNext)
     );
 
-    Adder #(.OPERAND_WIDTH(XLEN)) PCAdder (
-        .op1(PC),
-        .op2(32'h4),
-        .y(PCAdd4)
-    );
-
-    // Currently just simply add PC with 4
-    always@(PCAdd4)
-    begin
-        PCNext = PCAdd4;
-    end 
 endmodule

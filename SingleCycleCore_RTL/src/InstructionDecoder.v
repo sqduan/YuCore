@@ -11,7 +11,7 @@
  * Date        : 2022/12/11                                                     *
  ********************************************************************************/
 
-module InstructionDecoder (srcRegister1, srcRegister2, desRegister, funct3, opcode, imm, instruction);
+module InstructionDecoder (srcRegister1, srcRegister2, desRegister, funct3, funct7, opcode, imm, instruction);
     `include "Parameters.vh"
     input  [XLEN - 1 : 0] instruction;
 
@@ -21,6 +21,7 @@ module InstructionDecoder (srcRegister1, srcRegister2, desRegister, funct3, opco
 
     output reg [6 : 0] opcode;
     output reg [2 : 0] funct3;
+    output reg funct7;
 
     output reg [24 : 0]imm;
 
@@ -28,6 +29,7 @@ module InstructionDecoder (srcRegister1, srcRegister2, desRegister, funct3, opco
     begin
         opcode       <= instruction[6 : 0];
         funct3       <= instruction[14 : 12];
+        funct7       <= instruction[30];
         srcRegister1 <= instruction[19 : 15];
         srcRegister2 <= instruction[24 : 20];
         desRegister  <= instruction[11 : 7];

@@ -39,10 +39,10 @@ module MainDecoder (branch, resultSrc, memWrite, ALUSrc, immSrc, regWrite, ALUOp
 
     // This always block is the implement of the main decoder's truth table,
     // give opcode, generate control signals for different modules on datapath
-    always @ (opcode)
+    always @ (*)
     begin
         case(opcode)
-            I_TYPE_INSTR : begin
+            LW_INSTR : begin
                 regWrite  <= 1'b1;
                 immSrc    <= 2'b00;
                 ALUSrc    <= 1'b1;
@@ -77,6 +77,15 @@ module MainDecoder (branch, resultSrc, memWrite, ALUSrc, immSrc, regWrite, ALUOp
                 resultSrc <= 1'bx;
                 branch    <= 1'b1;
                 ALUOpcode <= 2'b01;
+            end
+            I_TYPE_ALU_INSTR : begin
+                regWrite  <= 1'b1;
+                immSrc    <= 2'b00;
+                ALUSrc    <= 1'b1;
+                memWrite  <= 1'b0;
+                resultSrc <= 1'b0;
+                branch    <= 1'b0;
+                ALUOpcode <= 2'b10;
             end
         endcase
     end

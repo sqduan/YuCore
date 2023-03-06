@@ -1,59 +1,45 @@
 /********************************************************************************
  *                                                                              *
- *                          Yu Core - Single Cycle Version                      *
+ *                         Yu Core - Single Cycle Version                       *
  *                                                                              *
  *------------------------------------------------------------------------------*
- * File Name   : ProgramCounter.v                                               *
- * Description : This file is the test branch of the program counter            *
+ * File Name   : Top_tb.v                                                       *
+ * Description : This file is the test branch of the entire core                *
  * Test Steps                                                                   *
  *      Step 1 : Set input and output for DUT                                   *
  *      Step 2 : Create DUT with the io signals                                 *
  *      Step 3 : Initial signals                                                *
  *                                                                              *
  * Author      : Shiqi Duan                                                     *
- * Date        : 2022/11/6                                                      *
+ * Date        : 2023/3/6                                                       *
  ********************************************************************************/
 `timescale 1ns/10ps
 
-module ProgramCounter_tb;
+module Top_tb;
+    `include "../src/utils/Assert.vh"
     `include "../src/Parameters.vh"
     // Input stimulus
+    parameter INSTRUCTION_FILE_NAME = "./test/datapath_tb1.ASM";
     reg  clk, rst;
-    reg  PCSrc;
-    reg  imm;
-    wire [DATA_WIDTH_32 - 1 : 0] PC;
 
-    ProgramCounter DUT (
-        .PC(PC),
-        .PCSrc(1'b0),
-        .imm(0),
+    Top #(.INSTRUCTION_FILE_NAME(INSTRUCTION_FILE_NAME)) top (
         .clk(clk),
         .rst(rst)
     );
 
+    // Test initialization
     initial
     begin
-        clk <= 0;
-        rst <= 0;
-        PCSrc <= 0;
-        imm <= 0;
-    end
+        #0
+        clk = 0;
+        rst = 0;
 
-    // Release counter at 10
-    initial
-    begin
+        // release
         #10
-        rst <= 1;
+        rst = 1;
     end
 
-    initial
-    begin
-        #40
-        rst <= 0;
-        #10
-        rst <= 1;
-    end
-
+    // Clock drive
     always #5 clk = ~clk;
 
 endmodule

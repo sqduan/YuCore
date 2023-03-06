@@ -37,13 +37,15 @@ parameter DATA_MEM_SIZE = 1024;
 //----------------------------------------------------------------
 // Parameters of Instruction
 //----------------------------------------------------------------
-parameter I_TYPE_INSTR = 7'b000_0011;
-parameter S_TYPE_INSTR = 7'b010_0011;
-parameter R_TYPE_INSTR = 7'b011_0011;
-parameter B_TYPE_INSTR = 7'b110_0011;
+parameter LW_INSTR         = 7'b000_0011;    // opcode for lw
+parameter S_TYPE_INSTR     = 7'b010_0011;
+parameter R_TYPE_INSTR     = 7'b011_0011;
+parameter B_TYPE_INSTR     = 7'b110_0011;
+parameter I_TYPE_ALU_INSTR = 7'b001_0011;    // opcode for I type ALU 
 
-parameter I_TYPE_IMM   = 1'b0;
-parameter S_TYPE_IMM   = 1'b1;
+parameter I_TYPE_IMM   = 2'b00;
+parameter S_TYPE_IMM   = 2'b01;
+parameter B_TYPE_IMM   = 2'b10;
 
 //----------------------------------------------------------------
 // Parameters of Arithmetic Logic Unit (ALU)

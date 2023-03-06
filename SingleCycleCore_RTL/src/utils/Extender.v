@@ -11,8 +11,8 @@
  
 module Extender (extendedImm, imm, immSrc);
     `include "../Parameters.vh"
-    input   [XLEN - 8 : 0] imm;             // [31..7] are the immediate number part of the instruction
-    input   immSrc;                  // Immediate number's width vary from different instruction types
+    input [XLEN - 8 : 0] imm;             // [31..7] are the immediate number part of the instruction
+    input [1 : 0] immSrc;                  // Immediate number's width vary from different instruction types
 
     output reg [XLEN - 1 : 0] extendedImm;  // Extended immediate number 
 
