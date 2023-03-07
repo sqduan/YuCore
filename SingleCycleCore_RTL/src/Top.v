@@ -43,6 +43,8 @@ module Top
     wire [1 : 0] immSrc;
     wire regWrite;
 
+    wire zero;
+
     // Between datapath and data memory
     wire [XLEN - 1 : 0] ALUResult;
     wire [XLEN - 1 : 0] readData;
@@ -106,6 +108,7 @@ module Top
         .PC(PC),
         .ALUResult(ALUResult),
         .writeData(writeData),
+        .zero(zero),
 
         .srcRegister1(srcRegister1),
         .srcRegister2(srcRegister2),

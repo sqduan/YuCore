@@ -54,8 +54,9 @@ module DataPath
     wire [XLEN - 1 : 0] result;        // result write to register file
 
     // Register file to ALU
-    wire [XLEN - 1 : 0] A;
-    wire [XLEN - 1 : 0] B;
+    wire [XLEN - 1 : 0] srcA;          // srcRegister1's value, use as ALU oprand A
+    wire [XLEN - 1 : 0] srcB;
+    wire [XLEN - 1 : 0] readData2;     // srcRegister2's value, to be muxed with immediate number and used as oprand B
     wire [XLEN - 1 : 0] extendedImm;
 
     //----------------------------------------------------------------
@@ -73,8 +74,8 @@ module DataPath
     // Register File Unit
     //----------------------------------------------------------------
     RegisterFile regFile (
-        .readData1(A),
-        .readData2(B),
+        .readData1(srcA),
+        .readData2(readData2),
         .clk(clk),
         .srcRegister1(srcRegister1),
         .srcRegister2(srcRegister2),
@@ -96,17 +97,17 @@ module DataPath
     // The mux to select input source of second operand of ALU,
     // from register file (a) or immediate extender (b)
     Mux2 ALUSrcMux (
-        .out(B),
+        .out(srcB),
         .select(ALUSrc),
-        .a(B),
+        .a(readData2),
         .b(extendedImm)
     );
 
     ALU alu (
         .result(ALUResult),
         .zero(zero),
-        .A(A),
-        .B(extendedImm),
+        .A(srcA),
+        .B(srcB),
         .control(ALUControl)
     );
 

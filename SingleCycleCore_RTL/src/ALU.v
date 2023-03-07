@@ -27,6 +27,7 @@ module ALU (result, zero, A, B, control);
             SUB_OPCODE : result = A - B;
             AND_OPCODE : result = A & B;
             OR_OPCODE  : result = A | B;
+            SLT_OPCODE : result = A < B;
         endcase
     end
 
